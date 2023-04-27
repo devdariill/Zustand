@@ -6,12 +6,29 @@ interface State {
   currentQuestion: number
   fetchQuestions: (limit: number) => Promise<void>
 }
-export const useQuestionsStore = create<State>(set => {
+export const useQuestionsStore = create<State>((set, get) => {
   return {
     questions: [],
     currentQuestion: 0,
     fetchQuestions: async (limit: number) => {
-      console.log('fetching questions')
+      set({
+        questions: [
+
+          {
+            id: 1,
+            question: '¿Cuál es la salida de este código?',
+            code: 'console.log(typeof NaN)',
+            answers: [
+              'undefined',
+              'NaN',
+              'string',
+              'number'
+            ],
+            correctAnswer: 3
+          }
+
+        ]
+      })
     }
   }
 })
