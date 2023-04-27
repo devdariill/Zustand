@@ -16,7 +16,8 @@ function App () {
             JavaScript Quizz
           </Typography>
         </Stack>
-        <Start />
+        {questions.length === 0 && <Start />}
+        {questions.length > 0 && <p>Questions</p>}
       </Container>
     </main>
   )
