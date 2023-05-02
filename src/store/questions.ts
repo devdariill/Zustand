@@ -12,7 +12,22 @@ interface State {
   goToPreviousQuestion: () => void
   reset: () => void
 }
-export const useQuestionsStore = create<State>()(persist((set, get) => {
+
+const logger = (config) => (set: any, get: any, api: any) => {
+  return config(
+    (...args) => {
+      console.log('--------')
+      console.log('  applying', args)
+      set(...args)
+      console.log('  new state', get())
+    },
+    // set,
+    get,
+    api
+  )
+}
+
+export const useQuestionsStore = create<State>()(logger(persist((set, get) => {
   return {
     questions: [],
     currentQuestion: 0,
@@ -62,4 +77,4 @@ export const useQuestionsStore = create<State>()(persist((set, get) => {
   name: 'questions'
   // getStorage: localStorage // default
   // getStorage: sessionStorage
-}))
+})))
