@@ -5,6 +5,10 @@ import { useQuestionsStore } from './store/questions'
 import { type Question as QuestionType } from './types.d'
 
 const Question = ({ info }: { info: QuestionType }) => {
+  const selectAnswer = useQuestionsStore(state => state.selectAnswer)
+  const createHandleClick = (answerIndex: number) => () => {
+    selectAnswer(info.id, answerIndex)
+  }
   return (
     <Card variant='outlined' sx={{ textAlign: 'left', p: 2, marginTop: 4 }}>
       <Typography variant='h5'>
@@ -16,7 +20,7 @@ const Question = ({ info }: { info: QuestionType }) => {
       <List sx={{ bgcolor: '#333' }} disablePadding>
         {info.answers.map((answer, index) => (
           <ListItem key={index} disablePadding divider>
-            <ListItemButton>
+            <ListItemButton onClick={createHandleClick(index)}>
               <ListItemText primary={answer} sx={{ textAlign: 'center' }} />
             </ListItemButton>
           </ListItem>
