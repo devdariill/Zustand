@@ -1,5 +1,6 @@
 import confetti from 'canvas-confetti'
 import { create } from 'zustand'
+import { persist } from 'zustand/middleware'
 import { type Question } from '../types.d'
 
 interface State {
@@ -10,7 +11,7 @@ interface State {
   goToNextQuestion: () => void
   goToPreviousQuestion: () => void
 }
-export const useQuestionsStore = create<State>((set, get) => {
+export const useQuestionsStore = create<State>()(persist((set, get) => {
   return {
     questions: [],
     currentQuestion: 0,
@@ -52,4 +53,8 @@ export const useQuestionsStore = create<State>((set, get) => {
       }
     }
   }
-})
+}, {
+  name: 'questions'
+  // getStorage: localStorage // default
+  // getStorage: sessionStorage
+}))
