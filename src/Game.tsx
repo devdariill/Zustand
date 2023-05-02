@@ -9,6 +9,15 @@ const Question = ({ info }: { info: QuestionType }) => {
   const createHandleClick = (answerIndex: number) => () => {
     selectAnswer(info.id, answerIndex)
   }
+  const getBackgroundColor = (info: QuestionType, index: number) => {
+  // const getBackgroundColor = ({ info, index }: { index: number, info: QuestionType }) => {
+    const { userSelectedAnswer, correctAnswer } = info
+    if (userSelectedAnswer == null) return 'transparent'
+    if (index !== correctAnswer && index !== userSelectedAnswer) return 'transparent'
+    if (index === correctAnswer) return 'green'
+    if (index === userSelectedAnswer) return 'red'
+    return 'transparent'
+  }
   return (
     <Card variant='outlined' sx={{ textAlign: 'left', p: 2, marginTop: 4 }}>
       <Typography variant='h5'>
@@ -20,7 +29,11 @@ const Question = ({ info }: { info: QuestionType }) => {
       <List sx={{ bgcolor: '#333' }} disablePadding>
         {info.answers.map((answer, index) => (
           <ListItem key={index} disablePadding divider>
-            <ListItemButton onClick={createHandleClick(index)}>
+            <ListItemButton
+              disabled={info.userSelectedAnswer != null}
+              onClick={createHandleClick(index)}
+              sx={{ backgroundColor: getBackgroundColor(info, index) }}
+            >
               <ListItemText primary={answer} sx={{ textAlign: 'center' }} />
             </ListItemButton>
           </ListItem>
