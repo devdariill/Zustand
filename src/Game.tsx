@@ -2,6 +2,7 @@ import { ArrowBackIosNew, ArrowForwardIos } from '@mui/icons-material'
 import { Card, IconButton, List, ListItem, ListItemButton, ListItemText, Stack, Typography } from '@mui/material'
 import SyntaxHighlighter from 'react-syntax-highlighter'
 import { gradientDark } from 'react-syntax-highlighter/dist/esm/styles/hljs'
+import { Footer } from './components/Footer'
 import { useQuestionsStore } from './store/questions'
 import { type Question as QuestionType } from './types.d'
 
@@ -61,6 +62,7 @@ export const Game = () => {
         </IconButton>
       </Stack>
       <Question info={questionInfo} />
+      <Footer />
     </>
   )
 }
